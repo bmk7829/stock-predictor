@@ -2,7 +2,7 @@ import React from 'react';
 import { Activity, AlertTriangle, CheckCircle, Clock } from 'lucide-react';
 import { useMarketStatus } from '../hooks/useMarketStatus';
 
-export default function PredictionCard({ prediction }) {
+export default function PredictionCard({ prediction, lastDate }) {
     const isOpen = useMarketStatus();
 
     if (!isOpen) {
@@ -43,7 +43,10 @@ export default function PredictionCard({ prediction }) {
     return (
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm flex flex-col justify-between">
             <div className="flex items-center justify-between mb-4">
-                <h3 className="text-slate-500 dark:text-slate-400 font-medium">AI Forecast</h3>
+                <div>
+                    <h3 className="text-slate-500 dark:text-slate-400 font-medium">AI Forecast</h3>
+                    {lastDate && <p className="text-xs text-slate-400 mt-0.5">Forecast Date: {new Date(lastDate).toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>}
+                </div>
                 <span className={`px-3 py-1 rounded-full text-xs font-bold border flex items-center gap-1 ${getSignalColor()}`}>
                     <Icon size={14} />
                     {signal}

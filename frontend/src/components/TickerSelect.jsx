@@ -19,7 +19,8 @@ export default function TickerSelect({ symbol, setSymbol }) {
             <div className="flex flex-col">
                 <div className="flex items-center gap-3">
                     <h2 className="text-xl font-bold dark:text-white">Stock Market</h2>
-                    {isOpen ? (
+                    {/* FORCE SHOW MARKET CLOSED for showcasing on weekends */}
+                    {false ? (
                         <span className="flex items-center gap-1.5 text-[10px] sm:text-xs font-bold text-emerald-600 dark:text-emerald-400 bg-emerald-50 dark:bg-emerald-900/40 px-2.5 py-1 rounded-full border border-emerald-200 dark:border-emerald-800 tracking-wide uppercase">
                             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                             MARKET OPEN

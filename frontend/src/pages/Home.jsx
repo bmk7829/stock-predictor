@@ -62,7 +62,7 @@ export default function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 animate-in slide-in-from-bottom-4 duration-700">
                 <PriceCard currentPrice={currentPrice} previousPrice={previousPrice} lastDate={lastDate} symbol={symbol} />
-                <PredictionCard prediction={prediction} />
+                <PredictionCard prediction={prediction} lastDate={lastDate} />
                 <TradePanel symbol={symbol} currentPrice={currentPrice} prediction={prediction} onTradeSuccess={() => console.log('Trade success!')} />
             </div>
 
