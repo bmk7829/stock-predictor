@@ -7,8 +7,8 @@ export default function PriceCard({ currentPrice, previousPrice, lastDate, symbo
     const pct = previousPrice && previousPrice > 0 ? (diff / previousPrice) * 100 : 0;
 
     const isUp = diff >= 0;
-    // const isOpen = useMarketStatus();
-    const isOpen = false; // FORCE MARKET CLOSED for showcase
+    const isOpen = useMarketStatus();
+    // const isOpen = false; // FORCE MARKET CLOSED for showcase
 
     return (
         <div className="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-6 shadow-sm flex flex-col justify-between h-full">

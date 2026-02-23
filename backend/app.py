@@ -3,7 +3,7 @@ from flask_cors import CORS
 import pandas as pd
 
 from config import Config
-from services.yahoo import fetch_history, fetch_news
+from services.nse import fetch_history, fetch_news, fetch_latest_price
 from services.model import train_or_load, predict_next, make_signal
 from services.simulator import init_if_needed, portfolio_snapshot, execute_trade
 from services.sentiment import score_headlines
@@ -91,8 +91,8 @@ def predict():
 @app.get("/portfolio")
 def portfolio():
     symbol = request.args.get("symbol", cfg.DEFAULT_SYMBOL)
-    df = fetch_history(symbol, period="1d", interval="1m")
-    price = float(df["Close"].iloc[-1]) if not df.empty else 0.0
+    price = fetch_latest_price(symbol)
+    if pd.isna(price): price = 0.0
     snap = portfolio_snapshot(cfg.STORAGE_PATH, {symbol: price})
     snap["symbol_price"] = {symbol: price}
     snap["starting_balance"] = cfg.STARTING_BALANCE_INR
@@ -106,10 +106,9 @@ def trade():
     side = body.get("side")  # BUY/SELL
     qty = float(body.get("qty", 0))
 
-    df = fetch_history(symbol, period="1d", interval="1m")
-    if df.empty:
+    price = fetch_latest_price(symbol)
+    if pd.isna(price):
         return jsonify({"error": "No price available"}), 400
-    price = float(df["Close"].iloc[-1])
 
     try:
         t = execute_trade(cfg.STORAGE_PATH, symbol, side, qty, price, cfg.TRANSACTION_FEE_RATE)

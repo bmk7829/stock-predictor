@@ -1,4 +1,4 @@
-export const DEFAULT_SYMBOLS = ["RELIANCE.NS", "TCS.NS", "INFY.NS", "HDFCBANK.NS"];
+export const DEFAULT_SYMBOLS = ["RELIANCE", "TCS", "INFY", "HDFCBANK"];
 
 export function loadTheme() {
   const t = localStorage.getItem("theme") || "dark";
