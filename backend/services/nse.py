@@ -54,7 +54,9 @@ def fetch_news(symbol: str):
         if news_items:
             # take top 5
             for item in news_items[:5]:
-                headlines.append(item.get('title', ''))
+                title = item.get('content', {}).get('title') or item.get('title', '')
+                if title:
+                    headlines.append(title)
         
         if not headlines:
             raise ValueError("No news found")
